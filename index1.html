@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" ng-app = "ShoppingLisetDirectiveApp">
+  <head>
+    <meta charset="utf-8">
+    <script src = "angular.min.js"></script>
+    <script src = "app1.js"></script>
+    <link rel="stylesheet" href="Style1.css">
+    <title> Using Controllers inside Directives </title>
+  </head>
+  <body>
+    <h1> Using Controllers inside Directives </h1>
+
+    <div ng-controller = "ShoppingListController1 as list1">
+      <!-- <h3> Shopping List 1 </h3> -->
+
+      <input type="text" ng-model = "list1.ItemName" placeholder="Name">
+      <input type="text" ng-model = "list1.ItemQuantity" placeholder="Quantity">
+      <button type="button" ng-click = "list1.addItem();">Add a new</button>
+
+      <shopping-list my-list = "list1" my-title = "{{ list1.Title_Controller }}" ></shopping-list>
+
+      <!-- <ol>
+        <li ng-repeat = "item in list1.getItems">
+          {{ item.quantity }} of {{ item.name }}
+          <button type="button" ng-click = "list1.RemoveItem($index);">Remove Item</button>
+        </li>
+      </ol> -->
+
+
+    </div>
+
+  </body>
+</html>
