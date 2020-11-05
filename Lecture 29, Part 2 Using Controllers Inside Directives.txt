@@ -1,0 +1,124 @@
+[SOUND]
+We're back to our code editor and
+we're located in lecture 29, which is located in
+fullstack-course5 examples folder. And this is the same shopping list
+application we've been working with, except this time we're going
+to combine some behavior with together with our shopping list directive. Now the shopping list directive basically
+lists all the things in our shopping list. And prior to this lecture, we used to have another div right here
+that used to be the error message. If something was detected that's wrong, the error message would be
+outside of our shopping list. Well if you think about this a little
+bit more in a component type of fashion, really the error message should be
+part of the shopping list directive. After all, the shopping list knows
+about the items in the list and it can decide whether or
+not an error message should be displayed. That's exactly we'll going to do and
+to do that, we're going to declare our own
+controller on the shopping list. I already removed the error
+message from the main index.html. Let's save that and go to ab.js. Here, the first thing you see is, it's
+basically the same directive we had before except we changed the items from
+an equal sign to a less than sign, which is a one way direction. We're not really planning to
+change anything about the items so a one way binding is plenty. The first thing we want to
+do is declare a controller. We do that through a controller. Property and we'll call it ShoppingListDirectiveController to
+distinguish it from the other controllers. And we also want to follow this practices,
+so we'll say ControllerAs and we'll give it a label called List. That means in our shopping
+list.html will be able to refer to the shopping list directive controller
+instance through this label called List and that's where the items and
+title properties will show up on. They will show up on the instance of
+the actual controller which we're going to call list inside the shopping list .html. One more thing that we need to make
+sure is to tell angular that we actually want to bind all of the scope variables
+scope properties to our controller. And for that we'll just say
+bindToController and we'll call it true. We'll say true. Now it's bound to controller. Obviously we now need to implement our
+shopping list directive controller. We'll go right below the actual
+function that declares directive and we say function we'll give it a name and
+inside we'll do that best practice of storing this key word
+inside the local variable. So now it is List and again this list
+obviously is actually nothing to do with this one other than the fact that this is
+a local variable named the same as this list that is going to be a label on
+the ShoppingListDirectiveController when we reference it inside
+the shoppingList.html. But here inside of our controller,
+it's nothing more than our local variable. And the functionality I want to
+implement is that if there's a cookie, that's part of our shopping list,
+want to display a warning. Yeah, I know, I'm obsessed about
+cookies but what can you do? And we want that functionality to be
+sitting inside of the controller, not outside of our directive, so
+this will be a place to define it, and the way that we define it, just like we
+define anything else in the controller, we define it through this keyword,
+in this case it's going to be list. One and the same. We'll say cookiesInList and we'll define a function, don't need
+the name and it's going to be a bullion, it's going to return a bullion,
+either it has cookies in the list or not. And I've actually prepared
+some code right here. And all we're going to do is,
+I'm going to copy and paste it right here, all we're going to do is we're
+going to loop over our list items, the items that got bound
+to the scoop right here. And we're referring to them by
+this keyword, which is now list. So list.item.length we're basically
+looping over all the items in the list and all we are doing is just
+checking whether or not cookie string is part of it,
+if it is then we going to return true and if we go through the entire list and
+it's not there, we'll return false. Let's save that and the last thing
+we need to do is actually use it in our template which is
+shoppinglist.htm and you see here, this is left over code from a previous
+time which we're still to our scoped properties directly without
+the label of the controller syntax. And we remember the label was list so
+we just start saying List. And it is item in items. Well actually it is List.items and
+the rest we can just leave alone. This button right here that come in we are
+going to deal with in a different lecture. Let's go ahead and save that. We should be able to go
+back to the browser. Now we are going to go ahead and
+say something like chips. Five, four bags, and we had something. That's working. We could keep adding some stuff in here. But we didn't actually activate
+our special function here, which is cookies and list. In order to do that, we're going to
+put another div right below that. And we're going to say
+class error actually because we defined an error
+class which is in the styles, you can look at the styles just
+makes the whole thing bold and red. And we're going to do one more thing. We're going to say here WARNING. WARNING. Let's close the file browser so
+you can see it better, COOKIES, DETECTED, very dire warning right here. Point is we wanted this
+warning to show up only when there are cookies inside of our list,
+so how do we do that? Well, we can do it easily with ng if and we could say if List.cookiesInList, and we need the parenthesis so
+angular knows it's a function. And I'm going to save that. And now if I go back to our browser and
+we'll say, Chips, 2 bags of chips and
+everything is good but if we say Cookies let's
+get 10 bags of that. And when we do that the warning
+shows up immediately right here. That it's warning us that the cookies have
+been detected inside of our shopping list. Now let me go back to the code editor for a second, because there's one more way
+we could have declared our controller. Let's take a look at this
+controller right here. We see that we declared the controller
+directly as a function value. We didn't really have to do that. We could declare our controller on the
+module itself, and then use it right here. Let's try to do that just to see how
+that works, let's say controller and we will give the controller a name, we
+will give the controller exactly same name as the name of the functionm so
+that we don't get confused. And now we have a controller that we
+can now reference through this string, anywhere inside of this angular module. Then, when we say controller here, what we could do is we could put
+it in quotation marks, right here. We don't really need the controller as
+we could just say as List right here. Then we could just comment this out right
+there and save it so we are binding everything to the controller and
+the controller as list, is now being done through a string, because angular will
+look up the string to see if there is any such component exists in this module, and
+now it will because we just declared one. Now let's save that, now we can actually use this
+controller in more than one place. We could use it in this directive but we
+could also use it somewhere else as well, so we could definitely have
+a reusable controller and not that just in this file because here
+obviously, in this file we could reuse this function without any problems,
+but if it was in a different file and we're still working of the same module,
+if we left this just as a regular local function, inside of
+this if function it won't be visible. However once we stack it is a declared
+controller on the angular module, any where this module is being referenced, we're going to actually retrieve
+this controller and reuse it. Let's save that and go back to the browser
+and let's see that it actually works. Let's say chips, 2 bags of chips,
+and it's adding the bags of chips. Let's say Cookies,
+2 bags of cookies, and we add it. We see that same warning. Basically you could declare
+it either way you want. For our purposes,
+I will just comment this out. You have this code but I will
+actually put it back the way it was, maybe I'll just comment this out as well,
+and put controller here and we will say ShoppingListController and put a comma here and
+we'll comment this out as well. And now let's go back to the code editor
+and we have it exactly as it was before. Now if we say chips, 2 bags, it works and we say cookies and the dire warning shows
+up, that cookies have been detected. Let's summarize. To add functionality to the directive, one choice is to use a controller
+that's declared directly on the DDO. The direct definition object. In order to do that, you use the controller property on
+the DDO to declare that controller. Since the best practice is to
+use the controllerAs syntax, even inside the directive,
+you have to use the bindToController and controllerAs properties
+to bind the declared properties in isolate scope directly
+to the controller instance. Then, you define the controller
+function as you usually would. One last point, whenever possible,
+use the less than sign for a one-way binding to save resources instead of the
+bidirectional binding with the equal sign. The one-way binding is not only
+preferred for performance reasons, but also architecturally, because it is
+usually a bad practice to change the objects that are passed
+in into the directive.
