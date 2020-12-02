@@ -1,0 +1,13 @@
+
+<h3> {{ list_DirectiveController.Title_Directive }} </h3>
+<ol>
+  <li ng-repeat = "item in list_DirectiveController.list_Directive.getItems">
+    {{ item.quantity }} of {{ item.name }}
+    <button type="button" ng-click = "list_DirectiveController.list_Directive.RemoveItem($index);">Remove Item</button>
+  </li>
+</ol>
+
+
+<div class="error" ng-if = "list_DirectiveController.CookiesInList()">
+  Warning: Cookies
+</div>
